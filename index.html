@@ -73,7 +73,7 @@ footer{background:#0a2a1d;color:#fff;padding:40px 0 24px;margin-top:30px;font-si
 <div id="pg"></div>
 <div class="ann"><div class="mq" id="mq"></div></div>
 <header><div class="w hd"><a href="#/" class="logo">🛍️ Téranga Market</a><nav class="nv"><a href="#/">Accueil</a><a href="#/boutique">Boutique</a><a href="#/admin" id="gl" style="display:none">Gestion</a></nav>
-<div class="sbar"><button class="gh sm" aria-label="Rechercher" onclick="sOpen()">🔍</button></div><button class="sm" aria-label="Panier" onclick="drawer(1)">🛒 <span id="cc">0</span></button><button class="gh sm" id="ub" onclick="logout()" style="display:none"></button></div>
+<div class="sbar"><button class="gh sm" aria-label="Rechercher" onclick="sOpen()">🔍</button></div><button class="sm" aria-label="Panier" onclick="drawer(1)">🛒 <span id="cc">0</span></button><a class="bt sm" id="gm" href="#/admin" style="display:none">⚙️ Gestion</a><button class="gh sm" id="ub" onclick="logout()" style="display:none"></button></div>
 <div class="w" id="sw" style="display:none;padding-bottom:10px;position:relative"><input id="sq" placeholder="Rechercher un produit…" aria-label="Recherche" oninput="sug()"><div class="sug" id="sg"></div></div></header>
 <div id="au" class="au" style="display:none"></div><main id="app"></main>
 <aside class="dr" id="dr" aria-label="Panier"></aside>
@@ -231,7 +231,7 @@ async function doAuth(e){e.preventDefault();const em=$("#ae").value.trim().toLow
  me=em;try{localStorage.setItem("sess",em)}catch(x){}location.hash="#/";route();toast("Bienvenue "+(uname().split(" ")[0]||"")+" 👋")}
 function logout(){me=null;try{localStorage.removeItem("sess")}catch(e){}amode="login";route()}
 function auth(){const a=$("#au"),on=!me&&!location.hash.startsWith("#/livraison");a.style.display=on?"flex":"none";document.body.style.overflow=on?"hidden":"";if(on)a.innerHTML=authV();
- $("#gl").style.display=me===ADMIN?"":"none";const u=$("#ub");u.style.display=me?"":"none";u.textContent="👤 "+(uname().split(" ")[0]||"Compte")+" · Quitter"}
+ $("#gl").style.display=me===ADMIN?"":"none";$("#gm").style.display=me===ADMIN?"inline-flex":"none";const u=$("#ub");u.style.display=me?"":"none";u.textContent="👤 "+(uname().split(" ")[0]||"Compte")+" · Quitter"}
 // ---- routeur & effets ----
 function route(keep){if(!ready){$("#app").innerHTML='<div class="w sec"><div class="sk"></div></div>';return}
  const [h,q]=(location.hash||"#/").slice(2).split("?"),[pg,id]=h.split("/");const y=scrollY,fv=["n","t","a"].map(i=>$("#"+i)?.value);
