@@ -297,4 +297,22 @@ function liv(t){window.lt=t;SB.rpc("get_delivery",{p_token:t}).then(({data})=>{c
 async function lok(){const{data}=await SB.rpc("confirm_delivery",{p_token:lt,p_code:$("#lc").value.trim()});toast({ok:"✅ Livraison confirmée",code_invalide:"❌ Code incorrect",bloque:"🔒 Trop d'essais : contactez le vendeur",deja:"Déjà livrée"}[data]||"Erreur");route()}
 load();
 </script> 
+ <script>
+const shrink=f=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);c.toBlob(b=>r(b||f),"image/jpeg",.8)};i.onerror=()=>r(f);i.src=URL.createObjectURL(f)});
+const nm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+async function bulk(el){
+ const fs=[...el.files];let a=0,n=0;
+ for(const f of fs){
+  toast("Photo "+(a+n+1)+" / "+fs.length+"…");
+  const path=crypto.randomUUID()+".jpg",b=await shrink(f);
+  if(ER(await SB.storage.from("product-images").upload(path,b,{contentType:"image/jpeg"}),"Photo"))continue;
+  const url=SB.storage.from("product-images").getPublicUrl(path).data.publicUrl,
+   base=f.name.replace(/\.[^.]+$/,""),p=S.products.find(x=>nm(x.name)===nm(base)),
+   q=p?await SB.from("products").update({image_url:url}).eq("id",p.id)
+      :await SB.from("products").insert({name:base.replace(/[-_]+/g," "),category_id:S.cats[0]?.id||null,cost:0,price:0,description:"",active:false,image_url:url});
+  if(ER(q,"Produit"))continue;p?a++:n++}
+ await refresh();route();toast(a+" photo(s) associée(s), "+n+" brouillon(s) créé(s)")}
+const gp=G.p;
+G.p=()=>edit?gp():`<div class="cd" style="margin-bottom:12px"><b>📸 Ajouter plusieurs photos d'un coup</b><p style="color:var(--m);font-size:14px;margin:6px 0">Nommez chaque photo comme son produit (ex. Lampe solaire.jpg) : il reçoit sa photo. Sinon, un brouillon masqué est créé.</p><input type="file" accept="image/*" multiple onchange="bulk(this)"></div>`+gp();
+</script>
 </body></html>
