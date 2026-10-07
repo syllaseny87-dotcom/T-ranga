@@ -296,5 +296,27 @@ function liv(t){window.lt=t;SB.rpc("get_delivery",{p_token:t}).then(({data})=>{c
  return'<div class="w sec" id="lv" style="max-width:480px"><p>Chargement…</p></div>'}
 async function lok(){const{data}=await SB.rpc("confirm_delivery",{p_token:lt,p_code:$("#lc").value.trim()});toast({ok:"✅ Livraison confirmée",code_invalide:"❌ Code incorrect",bloque:"🔒 Trop d'essais : contactez le vendeur",deja:"Déjà livrée"}[data]||"Erreur");route()}
 load();
+</script> 
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap');
+:root{--p:#0B6B3A;--o:#C65D32;--gold:#E9A82A;--bg:#FAF6EE;--g:#E3F1E8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--p:#0b8f61}}
+:root[data-theme="dark"]{--p:#0b8f61}
+h1,h2,h3,.ti,.logo,.tb b,.nb .st b{font-family:'Playfair Display',Georgia,serif}
+.hero{background:linear-gradient(135deg,#053d22,#0B6B3A 60%,#178a52)}
+.fl{background:linear-gradient(100deg,#C65D32,#E9A82A)}
+.bd{background:var(--gold);color:#3a2a00}
+.cat{--ac:#0B6B3A;border-top:5px solid var(--ac);background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 14%,var(--c)),var(--c))}
+.cat:nth-child(4n+2){--ac:#C65D32}.cat:nth-child(4n+3){--ac:#B7791F}.cat:nth-child(4n+4){--ac:#14507a}
+.cat s{color:var(--ac);font-weight:600}
+.tg{background:var(--g);color:var(--p)}
+.mn{display:none}
+@media(max-width:760px){.mn{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}.mn a{flex:none;padding:8px 16px;border-radius:99px;border:1px solid var(--b);background:var(--c);font-weight:600;font-size:14px}}
+</style>
+<script>
+document.querySelector(".nv").insertAdjacentHTML("beforeend",'<a href="#/boutique?promo=1">Promotions</a><a href="https://wa.me/221776549003" target="_blank" rel="noreferrer">Contact</a>');
+document.querySelector("header .hd").insertAdjacentHTML("afterend",'<nav class="w mn" aria-label="Menu"><a href="#/">Accueil</a><a href="#/boutique">Boutique</a><a href="#/boutique?promo=1">Promotions</a><a href="https://wa.me/221776549003" target="_blank" rel="noreferrer">Contact</a></nav>');
+const oc=card;card=(p,d)=>oc(p,d).replace("<h3 ",'<span class="tg">'+E(cat(p.cat)?.name||"")+"</span><h3 ");
 </script>
+
 </body></html>
